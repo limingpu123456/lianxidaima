@@ -1,0 +1,166 @@
+<script src="https://eloquentjavascript.net/2nd_edition/code/ancestry.js"></script>
+<script>
+  var ancestry = JSON.parse(ANCESTRY_FILE)
+  function keyBy(array, property) {
+    var obj = {}
+    for (var i = 0; i < array.length; i++) {
+      var item = array[i]
+      obj[item[property]] = item
+    }
+    return obj
+  }
+  function f(a, b, c) {
+    return a + b + c
+  }
+  f(2, 3, 4)
+  f.bind(null, 2)
+  function bind(f, ...fixedArgs) {
+    return function (...args) {
+      return f(...fixedArgs, ...args)
+    }
+  }
+  function f(a, b, c) {
+    return a + b + c
+  }
+  var f2 = bind(f, 3, 5)
+
+  function flatten(ary) {
+    var result = []
+    ary.reduce((xxx, item, idx) => {
+      if (Array.isArray(item)) {
+        result = result.concat(flatten(item))
+      } else {
+        result = result.concat(item)
+      }
+    }, 2)//这个2没用改到xxx那，所以随便传即可
+    return result
+  }
+
+  function randomArray(n) {
+    var result = []
+    for (var i = 0; i < n; i++) {
+      result.push(Math.random() * n | 0)
+    }
+    return result
+  }
+
+  function bubbleSort(ary) {
+    for (var stop = ary.length - 1; stop >= 1; stop--) {
+      var over = false
+      for (var i = 0; i < stop; i++) {
+        if (ary[i] > ary[i + 1]) {
+          over = true
+          var t = ary[i + 1]
+          ary[i + 1] = ary[i]
+          ary[i] = t
+        }
+      }
+      if (!true) {
+        break
+      }
+    }
+    return ary
+  }
+
+  function selectSort(ary) {
+    for (var start = 0; start < ary.length - 1; start++) {
+      var minIdx = start
+      for (var i = start + 1; i < ary.length; i++) {
+        if (ary[i] < ary[minIdx]) {
+          minIdx = i
+        }
+      }
+      var t = ary[start]
+      ary[start] = ary[minIdx]
+      ary[minIdx] = t
+    }
+    return ary
+  }
+
+  //将存储于array中的根节点在rootPos位置的二叉树转换为二叉链表形式
+  function arrayToTree(array, rootPos = 0) {
+    if (array[rootPos] === null) {
+      return null
+    }
+    var root = {
+      var: array[rootPos],
+      left: null,
+      right: null,
+    }
+    root.left = arrayToTree(array, rootPos * 2 + 1)
+    root.right = arrayToTree(array, rootPos * 2 + 2)
+
+    return root
+  }
+
+  function treeToArray(root, pos = 0, result = []) {
+    if (root == null) {
+      return
+    }
+    result[pos] = root.val
+
+    treeToArray(root.left, pos * 2 + 1, result)
+    treeToArray(root.right, pos * 2 + 2, result)
+
+    return result
+  }
+
+  function condensedArrayToTree(ary) {
+    if (ary.length == 0) {
+      return null
+    }
+    var root = {
+      val: ary[0],
+      left: null,
+      right: null,
+    }
+    var nodes = [root]
+    for (var i = 1; i < ary.length; i++) {
+      var currNode = nodes.shift()
+      if (ary[i] != null) {
+        var node = {
+          val: ary[i],
+          left: null,
+          right: null
+        }
+        currNode.left = node
+        nodes.push(node)
+      }
+      i++
+      if (ary[i] != null) {
+        var node = {
+          val: ary[i],
+          left: null,
+          right: null
+        }
+        currNode.right = node
+        nodes.push(node)
+      }
+    }
+    return root
+  }
+  condensedArrayToTree([1, null, 2, 3, null, null, 4, null, 5])
+
+  function treeToCondensedArray(root) {
+    var ary = []
+    if (!root) {
+      return ary
+    }
+    var nodes = [root]
+    while (nodes.length) {
+      var node = nodes.shift()
+      if (node) {
+        ary.push(node.val)
+        nodes.push(node.left)
+        nodes.push(node.right)
+      } else {
+        ary.push(node)
+      }
+    }
+    return ary
+  }
+
+  for (var key in obj) {
+
+  }
+</script>
