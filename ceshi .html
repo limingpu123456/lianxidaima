@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <table id="tb1" width="800" align="center" cellpadding="5" cellspacing="0" rules="row">
+      <thead align="center">
+        <tr>
+          <td>序号</td>
+          <td>商品名称</td>
+          <td>单价</td>
+          <td>总价</td>
+          <td>数量</td>
+        </tr>
+      </thead>
+      <tbody align="center">
+        <tr v-for="(pro,index) in proList">
+          <td>{{index+1}}</td>
+          <td>{{pro.proName}}</td>
+          <td>{{pro.proPrice | filterMoney(pro.proPrice)}}</td>
+          <td>{{pro.proPrice * pro.proCount | filterMoney(pro.proPrice * pro.proCount)}}</td>
+          <td>
+            <input type="button" value="-" @click="reduceCount(pro)">
+            <input type="text" v-model="pro.proCount">
+            <input type="button" value="+" @click="addCount(pro)">
+          </td>
+        </tr>
+      </tbody>
+      <tfoot align="center">
+        <tr>
+          <td>总计</td>
+          <td>{{totalMoney}}</td>
+          <td colspan="3" align="right" class="goBuy">
+            <button>去结算</button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <!--1.导入vue.js-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        proList: [
+          { proName: "ipone", proPrice: 6530, proCount: 0 },
+          { proName: "ipone2", proPrice: 65302, proCount: 0 },
+          { proName: "ipone3", proPrice: 65303, proCount: 0 },
+        ]
+      },
+      computed: {
+        totalMoney() {
+          let totalMoney = 0
+          for (let i = 0; i < this.proList.length; i++) {
+            totalMoney += Number(this.proList[i].proPrice * this.proList[i].proCount)
+          }
+          return totalMoney.toFixed(2)
+        }
+      },
+      methods: {
+        reduceCount(pro) {
+          pro.proCount <= 0 ? pro.proCount = 0 : pro.proCount--
+        },
+        addCount(pro) {
+          pro.proCount++
+        }
+      },
+      filters: {
+        filterMoney(val) {
+          return val.toFixed(2)
+        }
+      },
+
+    })
+  </script>
+</body>
+
+</html>
