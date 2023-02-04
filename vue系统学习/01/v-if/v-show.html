@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!--v-if的值为false的时候，这个结点会被浏览器直接删除-->
+    <!--v-if会被浏览器直接删除，v-show会被浏览器隐藏掉，本质是display：none-->
+    <p v-if="type=='a'">这是一个p标签</p>
+    <p v-else>这个另一个p标签</p>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        bool1: false,
+        type: 'a'
+      }
+    })
+  </script>
+</body>
+
+</html>

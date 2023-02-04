@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+
+</head>
+
+<body>
+
+  <div id="app">
+    <p>{{str1}}</p>
+  </div>
+  <script>
+    //使用一个VUe对象来管理这个div及其里面的数据
+    new Vue({
+      //Vue对象管理是这个标签
+      el: "#app",
+      //这个标签里面会使用的一些数据
+      data: {
+        str1: "hello world"
+      }
+    })
+  </script>
+</body>
+
+</html>

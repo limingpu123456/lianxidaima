@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <style>
+    .active {
+      color: red;
+    }
+
+    .bd div {
+      display: none;
+    }
+
+    .bd .current {
+      display: block;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app" class="tab">
+    <div class="hd">
+      <span :class="num == 1 ?'active':''" @click="num = 1">标题1</span>
+      <span :class="num == 2 ?'active':''" @click="change()">标题2</span>
+      <span :class="num == 3 ?'active':''" @click="num = 3">标题3</span>
+    </div>
+    <div class="bd">
+      <div :class="num == 1 ?'current':''">标题1对应的内容</div>
+      <div :class="num == 2 ?'current':''">标题二对应的内容</div>
+      <div :class="num == 3 ?'current':''">标题三对应的内容</div>
+    </div>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        num: 1,
+      },
+      methods: {
+        change: function () {
+          this.num = 2
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <select>
+      <option v-for="(i,index) in list">{{index}}------{{i}}</option>
+    </select>
+    <hr>
+    <ul>
+      <li v-for="(item,key) in obj">{{key}}----{{item}}</li>
+    </ul>
+    <hr>
+    <ul>
+      <li v-for="item in titles"> <a href="#">{{item}}</a></li>
+    </ul>
+  </div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        str1: "hello",
+        list: [" ", "html", "css", "javascript"],
+        obj: {
+          name: "Vue",
+          age: 6,
+          job: "web"
+        },
+        titles: ['fjlskdjfldskfj',
+          'fsjdklfjsldkfjksd', 'jfdklsjfklsdjlfjskldjf',
+          'dklfjklsdjflkjsdlkfjsldjf']
+      }
+    })
+  </script>
+</body>
+
+</html>

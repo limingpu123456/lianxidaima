@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button v-if="!isCollected" @click="isCollected=!isCollected">点击收藏</button>
+    <button v-else @click="isCollected=!isCollected">取消收藏</button>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        isCollected: false,
+      }
+    })
+  </script>
+</body>
+
+</html>

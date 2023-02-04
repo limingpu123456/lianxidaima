@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>todolist</title>
+  <style type="text/css">
+    .list_con {
+      width: 600px;
+      margin: 50px auto 0;
+    }
+
+    .inputtxt {
+      width: 550px;
+      height: 30px;
+      border: 1px solid #ccc;
+      padding: 0px;
+      text-indent: 10px;
+    }
+
+    .inputbtn {
+      width: 40px;
+      height: 32px;
+      padding: 0px;
+      border: 1px solid #ccc;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .list li {
+      height: 40px;
+      line-height: 40px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .list li span {
+      float: left;
+    }
+
+    .list li a {
+      float: right;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="list_con">
+    <h2>To do list</h2>
+    <input type="text" name="" id="txt1" class="inputtxt" v-model="val">
+    <input type="button" name="" value="增加" id="btn1" class="inputbtn" @click="add">
+
+    <ul id="list" class="list">
+
+      <li v-for="item in list"><span>{{item.neirong}}</span><a href="javascript:;" class="del" @click="del">删除</a></li>
+      <!-- <li><span>学习css</span><a href="javascript:;" class="del">删除</a></li>
+      <li><span>学习javascript</span><a href="javascript:;" class="del">删除</a></li> -->
+
+    </ul>
+
+  </div>
+
+  <script>
+    new Vue({
+      el: ".list_con",
+      data: {
+        list: [
+          { neirong: "学习html" }
+        ],
+        val: "",
+      },
+      methods: {
+        add: function () {
+          this.list.push({ neirong: this.val })
+          this.val = ""
+        },
+        del: function () {
+          this.list.pop()
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

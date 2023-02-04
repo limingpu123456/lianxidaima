@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="val">
+    <p>{{val}}</p>
+
+    <select name="" id="" v-model="selVal">
+      <option value="1">bj</option>
+      <option value="2">sh</option>
+    </select>
+    <p>{{selVal}}fff</p>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        val: "",
+        selVal: ""
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <style>
+    .active {
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+    }
+
+    .current {
+      color: red
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!--class 值可以是一个对象，键名是类名，值为布尔-->
+    <div :class="{active:bool1,current:bool2}">1</div>
+    <div :class="['active','current']">2</div>
+    <div>3</div>
+    <div>4</div>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        bool1: false,
+        bool2: true
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+
+</head>
+
+<body>
+  <!--视图-->
+  <div id="app">
+    <!--这种写法叫做插值语法-->
+    <p>{{str1}}</p>
+    <p>{{num1>num2 ? num1 : num2}}</p>
+    <p>{{str2.split("").reverse().join("")}}</p>
+    <!--v-xxxx:叫做vue的指令-->
+    <a v-bind:href="url1">百度一下</a>
+    <a :href="url2">淘宝</a>
+  </div>
+  <script>
+    //模型层（数据）
+    new Vue({
+      el: "#app",
+      data: {
+        str1: "hello world",
+        num1: 20,
+        num2: 30,
+        str2: "hello",
+        url1: "http://www.baidu.com",
+        url2: "http://www.taobao.com"
+      }
+    })
+  </script>
+</body>
+
+</html>
