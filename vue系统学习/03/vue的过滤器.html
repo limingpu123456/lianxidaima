@@ -7,30 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
-  <style>
-    [v-cloak] {
-      display: none;
-    }
-
-  </style>
 </head>
 
 <body>
   <div id="app">
-    <p v-html="strHtml"></p>
-    <p v-pre>{{strHtml}}</p>
-    <p v-cloak>{{strHtml}}</p>
+    人民币:{{num | RMBformat}}
   </div>
   <script>
-    setTimeout(function () {
-      new Vue({
-        el: "#app",
-        data: {
-          strHtml: "<span>这是span标签</span>",
+    new Vue({
+      el: "#app",
+      data: {
+        num: 200
+      },
+      filters: {
+        //value形参，接收 | 前面的数据
+        RMBformat(value) {
+          return value + "元"
         }
-      }), 1500
+      }
     })
-
   </script>
 </body>
 

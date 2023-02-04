@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    总价为{{total}}
+  </div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        arr: [
+          { name: 'fjklsdjfklsdjf', price: 99, count: 3 },
+          { name: 'fjklsdjfklfsdfsdsdjf', price: 999, count: 4 },
+        ]
+      },
+      //coumputed必须要有一个返回值
+      //与methods不同的是，computed是有缓存效果的，缓存就是如果数据没有发生变化，就会用之前的数据
+      computed: {
+        total: {
+          get() {
+            //之前的代码写在get里面
+          },
+          set() {
+
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

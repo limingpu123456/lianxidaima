@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      min-width: 100px;
+      line-height: 50px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <table>
+      <tr>
+        <th v-for="i in titles">{{i}}</th>
+      </tr>
+      <tr v-for="item in arr" :key="item">
+        <td>{{item.name}}</td>
+        <td>{{item.math}}</td>
+        <td>{{item.chinese}}</td>
+        <td>{{item.english}}</td>
+        <td>{{item.math+item.chinese+item.english}}</td>
+      </tr>
+      <tr>
+        <td>平均分</td>
+        <td>{{average("math")}}</td>
+        <td>{{average("chinese")}}</td>
+        <td>{{average("english")}}</td>
+        <td>{{average("math")+average("chinese")+average("english")}}</td>
+      </tr>
+    </table>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        titles: ["姓名", "数学", "语文", "英语", "总成绩"],
+        arr: [
+          { name: '赵云', math: 97, chinese: 89, english: 67 },
+          { name: '关羽', math: 67, chinese: 52, english: 98 },
+          { name: '张飞', math: 72, chinese: 87, english: 89 },
+          { name: '马超', math: 92, chinese: 87, english: 59 },
+          { name: '黄忠', math: 47, chinese: 85, english: 92 },
+        ],
+      },
+      computed: {
+        //计算属性可以传参吗，使用闭包
+        average() {
+          return function (subj) {
+            let sum = this.arr.reduce((pre, current) => {
+              return pre + current[subj]
+            }, 0)
+
+            return sum / this.arr.length
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

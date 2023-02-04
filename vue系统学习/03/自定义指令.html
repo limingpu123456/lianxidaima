@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <style>
+    p {
+      width: 200px;
+      height: 200px;
+      background: pink;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="isShow = !isShow">按钮</button>
+    <p v-myshow="isShow"></p>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        isShow: true
+      },
+      directives: {
+        myshow: {
+          bind(el, binding) {
+            //myshow这个指令绑定到元素上的时候，执行这里的代码
+            //el表示myshow指令绑定的元素
+            console.log(el)
+            console.log(binding.value)
+            binding.value ? el.style.display = "block" : el.style.display = "none"
+          },
+          update(el, binding) {
+            //myshow的值发生改变，就会发生这里的代码
+            binding.value ? el.style.display = "block" : el.style.display = "none"
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

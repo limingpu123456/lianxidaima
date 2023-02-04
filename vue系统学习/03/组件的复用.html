@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-header :title="title1"></my-header>
+    <my-header :title="title2"></my-header>
+  </div>
+  <template id="tmpl">
+    <div>
+      <h1>{{title}}</h1>
+      <p>这是p标签</p>
+    </div>
+  </template>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        title1: "分类",
+        title2: "购物车"
+      },
+      components: {
+        myHeader: {
+          template: "#tmpl",
+          //声明myHeader这个组件的标签属性
+          props: ["title"]
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

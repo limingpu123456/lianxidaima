@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <style>
+    table,
+    td,
+    th {
+      border: 1px solid black;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      min-width: 100px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <table>
+      <tr>
+        <th v-for="title in titles">{{title}}</th>
+      </tr>
+      <tbody>
+        <tr v-for="(book,key) in books">
+          <td>{{key}}</td>
+          <td>{{book.name}}</td>
+          <td>{{book.date}}</td>
+          <td>{{book.price}}</td>
+          <td>
+            <button @click="del(key)">-</button>
+            {{book.num}}
+            <button @click="add(key)">+</button>
+          </td>
+          <td><button @click="remove(key)">移除</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>总价为:{{total}}</p>
+  </div>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        titles: ['编号', '书籍名称', '出版日期', '价格', '数量', '操作'],
+        books: [
+          {
+            name: '算法导论',
+            date: '2006-9',
+            price: 85,
+            num: 1
+          },
+          {
+            name: 'UNIX编程艺术',
+            date: '2006-2',
+            price: 59,
+            num: 1
+          },
+          {
+            name: 'Vue程序设计',
+            date: '2008-10',
+            price: 35,
+            num: 1
+          },
+          {
+            name: '颈椎康复',
+            date: '2006-3',
+            price: 129,
+            num: 1
+          },
+        ],
+      },
+      computed: {
+        total() {
+          let total = this.books.reduce((pre, cur) => {
+            pre += cur.price * cur.num
+            return pre
+          }, 0)
+          return total
+        }
+      },
+      methods: {
+        add(index) {
+          this.books[index].num++
+        },
+        del(index) {
+          this.books[index].num == 1 ? "" : this.books[index].num--
+        },
+        remove(index) {
+          this.books.splice(index, 1)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

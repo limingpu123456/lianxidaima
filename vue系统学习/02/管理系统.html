@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>学生管理系统</title>
+  <link href="../public/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../public/css/style.css" rel="stylesheet">
+  <style>
+    .row>div {
+      border: 1px solid #000;
+    }
+
+    .modal {
+      display: block;
+      opacity: 1;
+      top: 100px;
+      overflow: visible;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+
+    <div class="container">
+      <table class="table table-striped">
+        <caption>学生管理系统v1.0-展示学生</caption>
+        <tr>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>性别</th>
+          <th>操作</th>
+        </tr>
+        <tr v-for="item,key in stuInfoArr">
+          <td>{{item.name}}</td>
+          <td>{{item.age}}</td>
+          <td>{{item.gender}}</td>
+          <td><button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"
+              @click="showDialog(item.name,key)">删除</button></td>
+        </tr>
+        <!-- <tr>
+                    <td>小明</td>
+                    <td>15</td>
+                    <td>男</td>
+                    <td><button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#exampleModal"
+                            data-whatever="@mdo">删除</button></td>
+                </tr>
+                <tr>
+                    <td>小明</td>
+                    <td>15</td>
+                    <td>男</td>
+                    <td>
+                        <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#exampleModal"
+                            data-whatever="@mdo">删除</button>
+                    </td>
+                </tr> -->
+      </table>
+
+
+
+      <hr>
+      <hr>
+      <hr>
+      <form action="">
+        <table class="table table-striped">
+          <caption>添加学生信息</caption>
+          <tr>
+            <td>项目</td>
+            <td>信息</td>
+          </tr>
+          <tr>
+            <td>姓名</td>
+            <td>
+              <input type="text" class="form-control" id="stuname" placeholder="姓名" name="stuname" v-model="stuName">
+            </td>
+          </tr>
+          <tr>
+            <td>年龄</td>
+            <td>
+              <input type="text" class="form-control" id="stuage" placeholder="年龄" name="stuage" v-model="stuAge">
+            </td>
+          </tr>
+          <tr>
+            <td>性别</td>
+            <td>
+              <label class="gen-span"><input type="radio" class="radio-info" name="gender" checked value="男"
+                  v-model="stuGender"> 男</label>
+              <label class="gen-span"><input type="radio" class="radio-info" name="gender" value="女"
+                  v-model="stuGender">
+                女</label>
+              <label class="gen-span"><input type="radio" class="radio-info" name="gender" value="保密"
+                  v-model="stuGender">
+                保密</label>
+            </td>
+          </tr>
+        </table>
+        <div style="text-align: center;"><input type="button" class="btn btn-info btn-sm add-btn" value="确定增加"
+            @click="add()" /></div>
+      </form>
+    </div>
+    <!-- 删除按钮确认框 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      v-show="isDialogShow">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              @click="isDialogShow=false"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">确认框</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="message-text" class="control-label">确定要删除<strong class="control-label-name"
+                    style="color:blue">{{delStuName}}</strong>吗？</label>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" @click="isDialogShow=false">返回</button>
+            <a href="###" class="delete-a"><button type="button" class="btn btn-primary"
+                @click="delStuInfo()">确认</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <script>
+    // 现有数据：
+    /*
+    arr:[
+        { name: '小明', age:12, gender:"男" },
+        { name: '小红', age:10, gender:"女" },
+        { name: '小刚', age:16, gender:"保密" }
+    ]
+    */
+
+    new Vue({
+      el: "#app",
+      data: {
+        stuInfoArr: [
+          { name: '小明', age: 12, gender: "男" },
+          { name: '小红', age: 10, gender: "女" },
+          { name: '小刚', age: 16, gender: "保密" }
+        ],
+        isDialogShow: false,
+        stuName: "",
+        stuAge: "",
+        stuGender: "保密",
+        delStuName: "",
+        index: ""
+      },
+      methods: {
+        add() {
+          if (!this.stuName || !this.stuAge) {
+            alert("姓名和年龄不能为空")
+            return
+          }
+          this.stuInfoArr.push({ name: this.stuName, age: this.stuAge, gender: this.stuGender })
+        },
+        showDialog(name, key) {
+          //点击删除按钮触发的函数
+          this.isDialogShow = true
+          this.delStuName = name
+          this.index = key
+        },
+        delStuInfo(index) {
+          this.stuInfoArr.splice(this.index, 1)
+          this.isDialogShow = false
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

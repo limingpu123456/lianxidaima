@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-header></my-header>
+    <my-header></my-header>
+  </div>
+  <!--组件的html代码，组件模板-->
+  <template id="tmpl">
+    <div>
+      <h1>首页</h1>
+    </div>
+  </template>
+  <script>
+    //component：组件
+    //template：模板
+    Vue.component("my-header", {
+      //注意事项：
+      //1.定义组件的时候，组件的名称可以是驼峰式命名，或者带-的命名方式
+      //2.调用组件的时候，组件名称只能是带-的方式，驼峰式不行
+      //3.组件只能有一个根标签
+      template: "#tmpl"
+    })
+
+    new Vue({
+      el: "#app",
+      data: {
+
+      }
+    })
+  </script>
+</body>
+
+</html>

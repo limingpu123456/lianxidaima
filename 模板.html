@@ -7,30 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
-  <style>
-    [v-cloak] {
-      display: none;
-    }
-
-  </style>
 </head>
 
 <body>
   <div id="app">
-    <p v-html="strHtml"></p>
-    <p v-pre>{{strHtml}}</p>
-    <p v-cloak>{{strHtml}}</p>
+
   </div>
   <script>
-    setTimeout(function () {
-      new Vue({
-        el: "#app",
-        data: {
-          strHtml: "<span>这是span标签</span>",
-        }
-      }), 1500
-    })
+    new Vue({
+      el: "#app",
+      data: {
 
+      }
+    })
   </script>
 </body>
 

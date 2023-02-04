@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="add">按钮</button>
+    <ul>
+      <!--:key的值就是浏览器判断是否进行dom更新的依据
+      如果这个依据在操作前后没有发生变化，浏览器不会进行dom更新
+    如果key的值是key，就会全部变化，因为依据key改变了，但是key如果是i
+  ，就会减少不必要的dom操作，提高了更新效率-->
+      <li v-for="(i,key) in list" :key="i">{{i}}</li>
+    </ul>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        list: ['html', 'css']
+      },
+      methods: {
+        add() {
+          this.list.unshift("Vue")
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
