@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      outline: none;
+    }
+
+    body {
+      background-color: #ccc;
+    }
+
+    header {
+      background-color: #333;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    h1 {
+      color: #fff;
+    }
+
+    .wrap {
+      width: 600px;
+      margin: 0 auto;
+    }
+
+    header .wrap {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    header input {
+      height: 40px;
+      margin-top: 3px;
+      width: 300px;
+      text-indent: 10px;
+    }
+
+    .hd {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .count {
+      width: 30px;
+      height: 30px;
+      background-color: #666;
+      border-radius: 50%;
+      line-height: 30px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .bd {
+      padding-bottom: 10px;
+    }
+
+    .bd li {
+      background-color: #fff;
+      height: 40px;
+      margin-top: 8px;
+      display: flex;
+    }
+
+    .l,
+    .r {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bd input[type=text] {
+      flex: 1;
+      height: 30px;
+      margin-top: 3px;
+      border-color: #fff;
+      border-width: 0px;
+    }
+
+    .l>input,
+    .r>div {
+      width: 30px;
+      height: 30px;
+    }
+
+    .r>div {
+      background-color: pink;
+      border-radius: 50%;
+      line-height: 30px;
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .bd input[type=checkbox],
+    .r>div {
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <div class="wrap">
+        <h1>ToDoList</h1>
+        <input type="text" placeholder="请输入任务">
+      </div>
+    </header>
+    <con-comp title="正在进行"></con-comp>
+    <con-comp title="已经完成"></con-comp>
+    <div class="footer">
+      xxxxxx
+    </div>
+  </div>
+
+  <template id="tmpl">
+    <div class="wrap">
+      <div class="hd">
+        <h3>{{title}}</h2>
+          <div class="count">2</div>
+      </div>
+      <ul class="bd">
+        <li>
+          <div class="l">
+            <input type="checkbox">
+          </div>
+          <input type="text">
+          <div class="r">
+            <div>-</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </template>
+  <script>
+    let conComp = {
+      template: "#tmpl",
+      props: ["title"]
+    }
+    new Vue({
+      el: "#app",
+      data: {
+        arr: [
+          {
+            id: 1,
+            content: "内容1",
+            isFinished: true
+          }
+        ],
+      },
+      components: {
+        conComp
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <!--
+    组件标签内部书写html标签的时候，默认不渲染
+    需要把这些html标签展示在组件内部，就需要用到slot标签来接收
+    slot标签出现的位置，就是将来html标签所在的位置，这种slot标签就称为插槽
+  -->
+  <div id="app">
+    <comp>
+      <a href="#" slot="link">这是一个a标签</a>
+      <button slot="btn">按钮</button>
+    </comp>
+  </div>
+
+  <template id="tmpl">
+    <div>
+      <slot name="link"></slot>
+      <h1>这是标题标签</h1>
+      <slot name="btn"></slot>
+    </div>
+  </template>
+  <script>
+    let comp = {
+      template: "#tmpl"
+    }
+    new Vue({
+      el: "#app",
+      data: {
+
+      },
+      components: {
+        comp
+      }
+    })
+  </script>
+</body>
+
+</html>

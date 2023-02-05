@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body,
+    #app1 {
+      width: 100%;
+      height: 100%;
+    }
+
+    .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+
+    .content {
+      width: 220px;
+      height: 160px;
+      background-color: #fff;
+    }
+
+    .title {
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+    }
+
+    .msg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 5px 10px;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      height: 80px;
+      text-align: center;
+      color: gray;
+      font-size: 14px;
+    }
+
+    .bottom {
+      display: flex;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+    }
+
+    .bottom div {
+      flex: 1;
+      color: green;
+    }
+
+    .bottom div:nth-of-type(1) {
+      border-right: 1px solid #eee;
+      color: red;
+    }
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+
+</head>
+
+<body>
+  <div id="app1">
+    <p>点击结果：{{clickResult}}</p>
+    <wrapper :text-obj="textObj" @fn="changeResult"></wrapper>
+  </div>
+</body>
+<template id="tmpl">
+  <div class="wrapper" v-show="isShow">
+    <div class="content">
+      <p class="title">{{textObj.title}}</p>
+      <div class="msg">{{textObj.msg}}</div>
+      <div class="bottom">
+        <div @click="handleClick(textObj.cancelTxt)">{{textObj.cancelTxt}}</div>
+        <div @click="handleClick(textObj.submitTxt)">{{textObj.submitTxt}}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  let wrapper = {
+    template: "#tmpl",
+    props: ["textObj"],
+    data() {
+      return {
+        isShow: true
+      }
+    },
+    methods: {
+      handleClick(val) {
+        this.isShow = false
+        this.$emit("fn", val)
+      }
+    }
+  }
+  // 现有以上布局，把wrapper抽取成子组件，通过传值的方式往内部传递数据
+  new Vue({
+    el: '#app1',
+    data: {
+      textObj: {
+        title: 'bug提示',
+        msg: '亲，你还有666666个bug，是否要处理?',
+        cancelTxt: '忽略，下班',
+        submitTxt: '加班处理'
+      },
+      clickResult: ""
+    },
+    components: {
+      wrapper
+    },
+    methods: {
+      changeResult(val) {
+        this.clickResult = val
+      }
+    }
+  })
+</script>
+
+</html>

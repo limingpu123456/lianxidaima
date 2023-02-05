@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!--@fn 自定义事件-->
+    <child-comp :num="parentNum" @fn="changeNum"></child-comp>
+  </div>
+  <template id="tmpl">
+    <div>
+      <p>{{num}}</p>
+      <button @click="add(20)">按钮</button>
+    </div>
+  </template>
+  <script>
+    //单项数据流(一般只支撑从父组件数据传递到子组件)
+    let childComp = {
+      template: "#tmpl",
+      props: ["num"],
+      methods: {
+        add(val) {
+          this.$emit("fn", val)
+        }
+      }
+    }
+    new Vue({
+      el: "#app",
+      data: {
+        parentNum: 20
+      },
+      components: {
+        childComp
+      },
+      methods: {
+        changeNum(val) {
+          this.parentNum += val
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .header {
+      background-color: pink;
+      width: 400px;
+      height: 50px;
+      display: flex;
+      line-height: 50px;
+      text-align: center;
+    }
+
+    .l,
+    .r {
+      width: 50px;
+      background-color: green;
+      font-size: 30px;
+    }
+
+    .r {
+      line-height: 30px;
+    }
+
+    .c {
+      flex: 1
+    }
+
+    ul {
+      display: flex;
+      justify-content: space-around;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <my-header>
+      <input type="text" slot="ipt">
+      <h3 slot="h3">购物车</h3>
+      <ul slot="ul">
+        <li>商品</li>
+        <li>评价</li>
+        <li>详情</li>
+      </ul>
+    </my-header>
+  </div>
+  <template id="tmpl">
+    <div>
+      <div class="header">
+        <div class="l">&lt;</div>
+        <div class="c">
+          <slot :name="slotName"></slot>
+        </div>
+        <div class="r">...</div>
+      </div>
+      <button @click=tab("ipt")>搜索</button>
+      <button @click=tab("h3")>标题</button>
+      <button @click=tab("ul")>购物</button>
+    </div>
+  </template>
+  <script>
+    let myHeader = {
+      template: "#tmpl",
+      data() {
+        return {
+          slotName: "ipt"
+        }
+      },
+      methods: {
+        tab(val) {
+          this.slotName = val
+        }
+      }
+    }
+    new Vue({
+      el: "#app",
+      data: {
+
+      },
+      components: {
+        myHeader
+      }
+    })
+  </script>
+</body>
+
+</html>

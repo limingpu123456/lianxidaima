@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <comp1></comp1>
+    <comp2></comp2>
+  </div>
+
+  <template id="tmpl1">
+    <button :style="{backgroundColor: bgc}">按钮1</button>
+  </template>
+  <template id="tmpl2">
+    <button @click="changeBgc">按钮2</button>
+  </template>
+  <script>
+    let bus = new Vue()
+    let comp1 = {
+      template: "#tmpl1",
+      data() {
+        return {
+          bgc: "green"
+        }
+      },
+      mounted() {
+        //数据挂载完毕之后执行(刷新之后就会执行)
+        //通过bus来发起自定义事件监听
+        bus.$on("changeBgcEvent", val => {
+          this.bgc = val
+        })
+      }
+    }
+    let comp2 = {
+      template: "#tmpl2",
+      data() {
+        return {
+          newColor: "pink"
+        }
+      },
+      methods: {
+        changeBgc() {
+          bus.$emit("changeBgcEvent", this.newColor)
+        }
+      }
+    }
+    new Vue({
+      el: "#app",
+      data: {
+
+      },
+      components: {
+        comp1,
+        comp2,
+      }
+    })
+  </script>
+</body>
+
+</html>
