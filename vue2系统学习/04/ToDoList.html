@@ -90,6 +90,10 @@
       border-width: 0px;
     }
 
+    .bd input[type=text].showBorder {
+      border: 1px solid #333;
+    }
+
     .l>input,
     .r>div {
       width: 30px;
@@ -121,11 +125,12 @@
     <header>
       <div class="wrap">
         <h1>ToDoList</h1>
-        <input type="text" placeholder="请输入任务">
+        <input type="text" placeholder="请输入任务" v-model="txtVal" @keyup.enter="add">
       </div>
     </header>
-    <con-comp title="正在进行"></con-comp>
-    <con-comp title="已经完成"></con-comp>
+    <con-comp type="doing" title="正在进行" :arr="arr" @fn="changeType" @fn2="showBorderFather" @fn3="delFather"></con-comp>
+    <con-comp type="finished" title="已经完成" :arr="arr" @fn="changeType" @fn2="showBorderFather"
+      @fn3="delFather"></con-comp>
     <div class="footer">
       xxxxxx
     </div>
@@ -135,16 +140,17 @@
     <div class="wrap">
       <div class="hd">
         <h3>{{title}}</h2>
-          <div class="count">2</div>
+          <div class="count">{{counts}}</div>
       </div>
       <ul class="bd">
-        <li>
+        <li v-for="item,key in arr" v-show="type=='doing'?!item.isFinished:item.isFinished">
           <div class="l">
-            <input type="checkbox">
+            <input type="checkbox" @click="clickCheckbox(key)" :checked="item.isFinished">
           </div>
-          <input type="text">
+          <input type="text" v-model="item.content" :class="item.isShowBorder?'showBorder':''"
+            @focus="showBorderMt(key)" @blur="showBorderMt(key)">
           <div class="r">
-            <div>-</div>
+            <div @click="del(key)">-</div>
           </div>
         </li>
       </ul>
@@ -153,21 +159,83 @@
   <script>
     let conComp = {
       template: "#tmpl",
-      props: ["title"]
+      props: ["title", "arr", "type"],
+      computed: {
+        // doingcounts() {
+        //   let newArr = this.arr.filter(item => {
+        //     return item.isFinished == false
+        //   })
+        //   return newArr.length
+        // },
+        // finishcounts() {
+        //   let newArr = this.arr.filter(item => {
+        //     return item.isFinished == true
+        //   })
+        //   return newArr.length
+        // }
+        counts() {
+          let newArr = this.arr.filter(item => {
+            return this.type == 'doing' ? !item.isFinished : item.isFinished
+          })
+          return newArr.length
+        }
+      },
+      methods: {
+        clickCheckbox(key) {
+          this.$emit("fn", key)
+        },
+        showBorderMt(key) {
+          this.$emit("fn2", key)
+        },
+        del(key) {
+          this.$emit("fn3", key)
+        }
+      }
     }
     new Vue({
       el: "#app",
       data: {
-        arr: [
-          {
-            id: 1,
-            content: "内容1",
-            isFinished: true
-          }
-        ],
+        arr: [],
+        txtVal: "",
+        num: 3,
       },
       components: {
         conComp
+      },
+      created() {
+        let num = localStorage.getItem("num")
+        let arr = localStorage.getItem("arr")
+        //拿过来的是字符串，不是数字
+        this.num = num ? Number(num) : 0
+        this.arr = arr ? JSON.parse(arr) : []
+      },
+      methods: {
+        changeType(index) {
+          this.arr[index].isFinished = !this.arr[index].isFinished
+          this.setLocalstorage()
+        },
+        showBorderFather(index) {
+          this.arr[index].isShowBorder = !this.arr[index].isShowBorder
+          this.setLocalstorage()
+        },
+        delFather(index) {
+          this.arr.splice(index, 1)
+          this.setLocalstorage()
+        },
+        add() {
+          this.arr.push({
+            id: ++this.num,
+            content: this.txtVal,
+            isFinished: false,
+            isShowBorder: false,
+          })
+          this.txtVal = ""
+          this.setLocalstorage()
+        },
+        setLocalstorage() {
+          localStorage.setItem("num", this.num)
+          localStorage.setItem("arr", JSON.stringify(this.arr))
+        }
       }
     })
   </script>

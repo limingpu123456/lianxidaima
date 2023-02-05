@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+  <style>
+    table,
+    td,
+    th {
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      width: 150px;
+      height: 50px;
+      padding-left: 10px;
+    }
+
+    button {
+      width: 80px;
+      height: 40px;
+      background-color: skyblue;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      border-radius: 4px;
+    }
+
+    .hd input {
+      height: 40px;
+      margin: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <info-table :titles="titles" :info="info" @fn="changeInfo" @fn2="changeIsShow"></info-table>
+  </div>
+  <template id="tmpl">
+    <div>
+      <div class="hd">
+        <span>名称</span>
+        <input type="text" v-model="txtVal">
+        <button @click="query">查询</button>
+      </div>
+      <table>
+        <tr>
+          <th v-for="title in titles">{{title}}</th>
+        </tr>
+        <tr v-for="item,key in info" v-show="item.is_show">
+          <td>{{item.id}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.price_info.toFixed(2)}}</td>
+          <td>{{item.is_show==true?"是":"否"}}</td>
+          <td><button @click="del(key)">删除</button></td>
+        </tr>
+        <tr>
+          <td colspan="5">总价为:{{total.toFixed(2)}}</td>
+        </tr>
+      </table>
+    </div>
+  </template>
+  <script>
+    let infoTable = {
+      template: "#tmpl",
+      data() {
+        return {
+          txtVal: "",
+          save_arr: [],
+        }
+      },
+      props: ["titles", "info"],
+      methods: {
+        query() {
+          let newArr = this.info.filter(item => {
+            return item.title.indexOf(this.txtVal) != -1 && item.is_show
+          })
+          this.save_arr = this.info
+          this.$emit("fn", newArr)
+        },
+        del(key) {
+          this.$emit("fn2", key)
+        }
+      },
+      computed: {
+        total() {
+          return this.info.reduce((pre, current) => {
+            return pre + (current.is_show ? current.price_info : 0)
+          }, 0)
+        }
+      }
+    }
+    new Vue({
+      el: '#app',
+      data: {
+        titles: ["ID", "主标题", "起步价格", "操作"],
+        info: [{
+          "id": 287,
+          "title": "严选新式样板间",
+          "price_info": 29.9,
+          "is_show": true
+        }, {
+          "id": 286,
+          "title": "无“油”无虑的甜蜜酥脆",
+          "price_info": 45,
+          "is_show": true
+        }, {
+          "id": 283,
+          "title": "孩子成长中少不了的一双鞋",
+          "price_info": 78,
+          "is_show": true
+        }, {
+          "id": 282,
+          "title": "成就一室笋香1",
+          "price_info": 121,
+          "is_show": true
+        }, {
+          "id": 281,
+          "title": "条纹新风尚",
+          "price_info": 29,
+          "is_show": true
+        }, {
+          "id": 277,
+          "title": "治愈生活的满怀柔软",
+          "price_info": 66.78,
+
+          "is_show": true
+        }, {
+          "id": 274,
+          "title": "没有软木拖，怎么过夏天",
+          "price_info": 50.99,
+          "is_show": true
+        }, {
+          "id": 272,
+          "title": "料理也要精细简单",
+          "price_info": 69,
+          "is_show": true
+        }, {
+          "id": 271,
+          "title": "选式新懒人",
+          "price_info": 15.3,
+          "is_show": true
+        }, {
+          "id": 268,
+          "title": "米饭好吃的秘诀：会呼吸的锅",
+          "price_info": 20.1,
+          "is_show": true
+        }]
+      },
+      components: {
+        infoTable
+      },
+      methods: {
+        changeInfo(val) {
+          this.info = val
+        },
+        changeIsShow(index) {
+          this.info[index].is_show = false
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
