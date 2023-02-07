@@ -70,6 +70,7 @@ export default {
       font-weight: 400;
       width: 32px;
       margin-left: 8px;
+      cursor: pointer;
     }
   }
 }

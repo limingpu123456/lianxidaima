@@ -15,7 +15,6 @@
           @click="$router.push('/home')"
         >
           免审即享事项清单
-          <el-divider></el-divider>
         </li>
       </ul>
     </div>
@@ -44,13 +43,10 @@ export default {
     margin-bottom: 10px;
     &.active {
       color: #017fed;
+      border-bottom: 4px solid #017fed;
+      padding-bottom: 10px;
+      margin-bottom: 1px;
     }
   }
-}
-::v-deep .el-divider {
-  width: 128px;
-  height: 4px;
-  background: #017fed;
-  margin-bottom: 1px;
 }
 </style>

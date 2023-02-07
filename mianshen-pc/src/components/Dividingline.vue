@@ -27,6 +27,7 @@ span {
 }
 .el-divider {
   margin-top: 10px;
+  margin-bottom: 20px;
   background: #000000;
 }
 </style>
