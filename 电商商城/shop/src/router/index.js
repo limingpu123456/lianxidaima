@@ -1,17 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Home from '../views/Home.vue'
+
+// 把这段代码直接粘贴到router/index.js中的Vue.use(VueRouter)之前
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function (location) {
+  return originalPush.call(this, location).catch(err => { })
+};
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: "/",
-    redirect: "/home"
+    redirect:"/home"
   },
   {
     path: '/home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/HomeView.vue')
+    name: 'Home',
+    component: Home
   },
   {
     path: '/goods',
@@ -29,6 +36,10 @@ const routes = [
     path: '/free',
     component: () => import(/* webpackChunkName: "free" */ '../views/Free.vue')
   },
+  {
+    path: '/details',
+    component: () => import(/* webpackChunkName: "details" */ '../views/Details.vue')
+  }
 ]
 
 const router = new VueRouter({
@@ -36,8 +47,5 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function (location) {
-  return originalPush.call(this, location).catch(err => { })
-};
+
 export default router

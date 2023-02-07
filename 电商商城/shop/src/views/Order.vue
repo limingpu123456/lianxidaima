@@ -1,15 +1,20 @@
-<!--  -->
 <template>
-  <div>Order</div>
+  <div>
+   Order订单
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {};
-  },
-};
-</script>
+  data () {
+    return {
 
-<style lang = "less"  scoped>
+ 
+    }
+  }
+}
+</script>
+ 
+<style lang = "less" scoped>
+  
 </style>

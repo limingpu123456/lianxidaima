@@ -1,6 +1,7 @@
 <template>
   <div>
-   User个人中心
+    
+    详情页
   </div>
 </template>
 
@@ -11,6 +12,10 @@ export default {
 
  
     }
+  },
+  created(){
+    // 发送对应的详情页的商品数据的请求
+    console.log(this.$route.query.id);
   }
 }
 </script>
