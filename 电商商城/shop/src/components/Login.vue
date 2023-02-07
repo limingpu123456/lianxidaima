@@ -45,8 +45,8 @@
           </div>
           <div class="input-group">
             <input type="text" placeholder="请输入验证码" />
-            <div class="btn get-code" @click="getSMScode">
-              <span v-show="!isShowCount">获取验证码</span>
+            <div class="btn get-code">
+              <span v-show="!isShowCount" @click="getSMScode">获取验证码</span>
               <span v-show="isShowCount">{{ count }}s</span>
             </div>
           </div>
