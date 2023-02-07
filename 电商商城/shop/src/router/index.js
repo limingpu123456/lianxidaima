@@ -6,18 +6,29 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/",
+    redirect: "/home"
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
+  {
+    path: '/home',
+    component: () => import(/* webpackChunkName: "home" */ '../views/HomeView.vue')
+  },
+  {
+    path: '/goods',
+    component: () => import(/* webpackChunkName: "goods" */ '../views/Goods.vue')
+  },
+  {
+    path: '/user',
+    component: () => import(/* webpackChunkName: "user" */ '../views/User.vue')
+  },
+  {
+    path: '/order',
+    component: () => import(/* webpackChunkName: "order" */ '../views/Order.vue')
+  },
+  {
+    path: '/free',
+    component: () => import(/* webpackChunkName: "free" */ '../views/Free.vue')
+  },
 ]
 
 const router = new VueRouter({
@@ -25,5 +36,8 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function (location) {
+  return originalPush.call(this, location).catch(err => { })
+};
 export default router
