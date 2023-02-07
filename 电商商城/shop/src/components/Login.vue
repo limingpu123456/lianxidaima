@@ -26,7 +26,11 @@
       <div class="body">
         <div class="form" v-show="isShowForm">
           <div class="input-group">
-            <input type="text" placeholder="请输入手机号" />
+            <input
+              v-model="phoneNumber"
+              type="text"
+              placeholder="请输入手机号"
+            />
           </div>
           <div class="input-group">
             <slide-verify
@@ -60,6 +64,7 @@
 
 <script>
 import { mapMutations } from "vuex";
+import { SendSMSAPI } from "@/request/api";
 export default {
   data() {
     return {
@@ -74,6 +79,7 @@ export default {
       isShowCount: false,
       //定时器变量,是一个组件的属性
       timer: null,
+      phoneNumber: "",
     };
   },
   methods: {
@@ -93,12 +99,16 @@ export default {
         }
       }, 1000);
     },
-    getSMScode() {
-      // if (this.msg == "再试一次" || this.msg == "向右滑动") {
-      //   // 就说明用户没有拖拽验证或者验证失败了
-      //   alert("请移动滑块至正确位置");
-      //   return;
-      // }
+    async getSMScode() {
+      if (this.msg == "再试一次" || this.msg == "向右滑动") {
+        // 就说明用户没有拖拽验证或者验证失败了
+        alert("请移动滑块至正确位置");
+        return;
+      }
+      let res = await SendSMSAPI({
+        phone: this.phoneNumber,
+      });
+      console.log(res);
       //倒计时 显示”获取验证码“倒计时
       this.isShowCount = true;
       this.countDown();
