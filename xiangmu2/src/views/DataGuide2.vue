@@ -24,6 +24,7 @@
         :cell-style="{ padding: '0' }"
         highlight-current-row
         @row-click="rowclick"
+        ref="lmp"
       >
         <el-table-column
           prop="id"
@@ -73,75 +74,6 @@
           </template>
         </el-table-column>
       </el-table>
-      <!-- <table>
-        <thead>
-          <tr>
-            <td class="id">序号</td>
-            <td style="width: 432px">事项名称</td>
-            <td style="width: 205px">事项分类</td>
-            <td>主管部门</td>
-            <td style="text-align: center">操作</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="id">1</td>
-            <td class="blue"><span>降低企业贷款成本</span></td>
-            <td>助企事项</td>
-            <td>深圳市龙华区人力资源局</td>
-            <td class="last">
-              <div
-                style="
-                  display: inline-block;
-                  border-bottom: 1px solid #ff8113;
-                  cursor: pointer;
-                "
-              >
-                办事指南
-              </div>
-              <div class="sep"></div>
-              <div
-                style="
-                  display: inline-block;
-                  border-bottom: 1px solid #ff8113;
-                  cursor: pointer;
-                "
-              >
-                办理
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td class="blue">
-              <span>重点招商引资企业招引高级管理人员或业务骨干资助</span>
-            </td>
-            <td>助企事项</td>
-            <td>深圳市龙华区人力资源局</td>
-            <td class="last">
-              <div
-                style="
-                  display: inline-block;
-                  border-bottom: 1px solid #ff8113;
-                  cursor: pointer;
-                "
-              >
-                办事指南
-              </div>
-              <span class="sep"></span>
-              <div
-                style="
-                  display: inline-block;
-                  border-bottom: 1px solid #ff8113;
-                  cursor: pointer;
-                "
-              >
-                办理
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
     </div>
     <el-dialog
       style="width: 1000px; height: 1300px"
@@ -187,9 +119,16 @@ export default {
       rules: {
         mingcheng: [
           { required: true, message: "请输入活动名称", trigger: "blue" },
+          { min: 3, message: "长度大于3", trigger: "blur" },
         ],
-        fenlei: [],
-        bumen: [],
+        fenlei: [
+          { required: true, message: "请输入分类", trigger: "blue" },
+          { min: 3, message: "长度大于3", trigger: "blur" },
+        ],
+        bumen: [
+          { required: true, message: "请输入主管部门", trigger: "blue" },
+          { min: 3, message: "长度大于3", trigger: "blur" },
+        ],
       },
       submitType: "",
       zdydialog: false,
@@ -235,25 +174,39 @@ export default {
   },
   methods: {
     bianji(index) {
+      if (this.curdata === null) {
+        this.$message({
+          type: "info",
+          message: "请选择要编辑的条目",
+        });
+        return;
+      }
       this.submitType = "update";
       this.form = this.tabledata[index];
       this.zdydialog = true;
+      this.$refs.lmp.setCurrentRow();
     },
     cancel() {
       this.zdydialog = false;
     },
     tianjia() {
+      if (this.curdata === null) {
+        this.curdata = this.tabledata.length;
+      }
       this.form = {
         id: this.curdata + 1,
         mingcheng: "",
         fenlei: "",
         bumen: "",
       };
+      console.log(this.curdata);
       this.submitType = "add";
       this.zdydialog = true;
+      this.$refs.lmp.setCurrentRow();
     },
     submit(idx, formName) {
       if (this.submitType == "add") {
+        //校验规则
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.tabledata.splice(idx + 1, 0, this.form);
@@ -261,13 +214,20 @@ export default {
               this.tabledata[i].id++;
             }
             this.zdydialog = false; //自定义对话框隐藏
+            this.curdata = null;
           } else {
-            console.log("error submit!!");
             return false;
           }
         });
       } else {
-        this.zdydialog = false; //自定义对话框隐藏
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.zdydialog = false; //自定义对话框隐藏
+          } else {
+            return false;
+          }
+        });
+        this.curdata = null;
       }
     },
     fn(index) {
@@ -299,6 +259,7 @@ export default {
               type: "success",
               message: "删除成功!",
             });
+            this.curdata = null;
           }
         })
         .catch(() => {
@@ -313,64 +274,6 @@ export default {
 </script>
 
 <style lang = "less"  scoped>
-// table {
-//   width: 1200px;
-//   margin-bottom: 204px;
-//   thead {
-//     tr {
-//       td {
-//         font-family: PingFangSC-Semibold;
-//         font-size: 16px;
-//         color: #333333;
-//         letter-spacing: 0;
-//         font-weight: 600;
-//         &.id {
-//           width: 79px;
-//         }
-//       }
-//     }
-//   }
-//   tbody {
-//     tr {
-//       height: 68px;
-//       border-bottom: 1px solid #ebebeb;
-
-//       td {
-//         // line-height: 68px;
-//         // vertical-align: middle;
-//         vertical-align: middle;
-//         font-family: PingFangSC-Regular;
-//         font-size: 16px;
-//         color: #333333;
-//         letter-spacing: 0;
-//         font-weight: 400;
-//         &.blue {
-//           font-family: PingFangSC-Regular;
-//           font-size: 16px;
-//           color: #2f7dd6;
-//           letter-spacing: 0;
-//           font-weight: 400;
-//           span {
-//             cursor: pointer;
-//           }
-//         }
-//         .sep {
-//           display: inline-block;
-//           width: 1px;
-//           height: 14px;
-//           background: #ebebeb;
-//           vertical-align: bottom;
-//           margin-left: 10px;
-//           margin-right: 10px;
-//         }
-//         &.last {
-//           text-align: center;
-//           color: #ff8113;
-//         }
-//       }
-//     }
-//   }
-// }
 .el-table {
   ::v-deep .el-table__cell {
     cursor: pointer;
@@ -466,4 +369,11 @@ export default {
 .el-dialog__wrapper {
   margin: 0 auto;
 }
+::v-deep .el-form-item__error {
+  margin-left: 80px;
+}
+
+// ::v-deep .el-table__body tr.current-row > td.el-table__cell {
+//   background-color: #fff;
+// }
 </style>

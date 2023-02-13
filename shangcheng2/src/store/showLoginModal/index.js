@@ -1,7 +1,7 @@
 export default {
   namespaced: true,
   state: {
-    isShowLoginModal: true,
+    isShowLoginModal: false,
   },
   getters: {
   },

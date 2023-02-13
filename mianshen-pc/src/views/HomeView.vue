@@ -19,7 +19,8 @@
       >
         <span>{{ item }}</span>
       </el-button>
-      <ul class="list">
+      <List></List>
+      <!-- <ul class="list">
         <li
           class="list-text"
           v-for="(item, idx) in list[btnnum1]"
@@ -28,7 +29,7 @@
         >
           <span class="text">{{ item }}</span>
         </li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </template>
@@ -36,8 +37,14 @@
 <script>
 import Dividingline from "@/components/Dividingline";
 import Tab from "@/components/Tab";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
+import List from "@/components/List";
 export default {
+  computed: {
+    ...mapState({
+      btnnum1: (state) => state.list.btnnum1,
+    }),
+  },
   data() {
     return {
       listbtn: [
@@ -48,45 +55,47 @@ export default {
         "助老事项(0项)",
         "助残事项(0项)",
       ],
-      list: [
-        [
-          "市服务外包专项扶持项目配套资助类",
-          "国家高新技术企业认定赞助类",
-          "国家A级物流及市重点物流企业资助类",
-          "版权示范单位(园区，基地)资助",
-        ],
-        ["市服务外包专项扶持项目配套资助"],
-        ["市服务外包专项扶持项目配套资", "国家高新技术企业认定赞助类"],
-        [],
-        [],
-        [],
-      ],
+      // list: [
+      //   [
+      //     "市服务外包专项扶持项目配套资助类",
+      //     "国家高新技术企业认定赞助类",
+      //     "国家A级物流及市重点物流企业资助类",
+      //     "版权示范单位(园区，基地)资助",
+      //   ],
+      //   ["市服务外包专项扶持项目配套资助"],
+      //   ["市服务外包专项扶持项目配套资", "国家高新技术企业认定赞助类"],
+      //   [],
+      //   [],
+      //   [],
+      // ],
       weitutitle: "免审即享事项清单",
       weitutext:
         "梳理龙华区免申即享事项清单，根据所属服务类型的不同进行分类。实现免申事项查询，全程网办、共享“互联网+政务服务”发展成果。",
       btnnum: 0,
-      btnnum1: 0,
+      // btnnum1: 0,
     };
   },
   components: {
     Dividingline,
     Tab,
+    List,
   },
   methods: {
     changeitem: function (it) {
       this.btnnum = it;
     },
-    listtitlefn: function (it) {
-      this.chanListtitle(it);
-      if (it == "市服务外包专项扶持项目配套资助类") {
-        this.$router.push("/detailpage");
-      }
-    },
+    // listtitlefn: function (it) {
+    //   this.chanListtitle(it);
+    //   if (it == "市服务外包专项扶持项目配套资助类") {
+    //     this.$router.push("/detailpage");
+    //   }
+    // },
     changeitem1: function (idx) {
-      this.btnnum1 = idx;
+      this.chanListbtnnum1(idx);
+      console.log(idx);
     },
     ...mapMutations({
-      chanListtitle: "list/chanListtitle",
+      chanListbtnnum1: "list/chanListbtnnum1",
     }),
   },
 };
@@ -146,33 +155,33 @@ export default {
     font-weight: 400;
   }
 }
-.list {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  height: 100%;
-  margin-top: 20px;
-  .list-text {
-    width: 380px;
-    height: 70px;
-    background: #f1f2f3;
-    margin-right: 30px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-  .list-text:nth-of-type(3n) {
-    margin-right: 0;
-  }
-  .text {
-    margin-left: 20px;
-    font-family: PingFangSC-Semibold;
-    font-size: 14px;
-    color: #333333;
-    letter-spacing: 0;
-    font-weight: 600;
-  }
-}
+// .list {
+//   display: flex;
+//   flex-wrap: wrap;
+//   width: 100%;
+//   height: 100%;
+//   margin-top: 20px;
+//   .list-text {
+//     width: 380px;
+//     height: 70px;
+//     background: #f1f2f3;
+//     margin-right: 30px;
+//     margin-bottom: 20px;
+//     cursor: pointer;
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column;
+//   }
+//   .list-text:nth-of-type(3n) {
+//     margin-right: 0;
+//   }
+//   .text {
+//     margin-left: 20px;
+//     font-family: PingFangSC-Semibold;
+//     font-size: 14px;
+//     color: #333333;
+//     letter-spacing: 0;
+//     font-weight: 600;
+//   }
+// }
 </style>

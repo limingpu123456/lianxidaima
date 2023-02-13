@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="container">
+  <div id="container">
     <div class="wrap">
       <div class="choose1">
         <span class="span1">请选择贵企业信息项</span>
@@ -559,23 +559,33 @@ html,
 body {
   height: 100%;
 }
-.wrap {
-  padding-bottom: 320px;
-}
-.footer {
-  background-color: #113c6e;
-  height: 58px;
+#container {
+  position: relative;
   width: 100%;
-  span {
-    display: block;
-    font-family: PingFangSC-Regular;
-    font-size: 12px;
-    color: #ffffff;
-    letter-spacing: 0;
-    text-align: center;
-    font-weight: 400;
-    line-height: 58px;
-    margin: 0 auto;
+  min-height: 100%;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+  .footer {
+    background-color: #113c6e;
+    height: 58px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    span {
+      display: block;
+      font-family: PingFangSC-Regular;
+      font-size: 12px;
+      color: #ffffff;
+      letter-spacing: 0;
+      text-align: center;
+      font-weight: 400;
+      line-height: 58px;
+      margin: 0 auto;
+    }
   }
 }
+// .wrap {
+//   padding-bottom: 320px;
+// }
 </style>
