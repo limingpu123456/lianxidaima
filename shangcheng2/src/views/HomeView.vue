@@ -41,15 +41,10 @@
 </template>
 
 <script>
-//如果有default，就不需要加大括号，没有default再加大括号
-import { JingpinAPI } from "@/request/api";
 import JfTitle from "@/components/home/JfTitle";
 import List from "@/components/home/List";
-export default {
-  name: "HomeView",
-  components: {},
 
-  name: "Home",
+export default {
   components: { JfTitle, List },
   data() {
     return {
