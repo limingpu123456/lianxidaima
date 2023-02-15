@@ -30,25 +30,14 @@ export default {
       banner: [],
     };
   },
-  async created() {
+  created() {
     GetHomeList().then((res) => {
-      this.banner = res.data.banner;
+      // console.log(res);
+      this.banner = res.data.data.banner;
     });
   },
 };
 </script>
 
 <style lang = "less"  scoped>
-// .slide-enter,
-// .slide-leave-to {
-//   right: -100%;
-// }
-// .slide-enter-active,
-// .slide-leave-active {
-//   transition: right 0.5s;
-// }
-// .slide-enter-to,
-// .slide-leave {
-//   right: 0;
-// }
 </style>
