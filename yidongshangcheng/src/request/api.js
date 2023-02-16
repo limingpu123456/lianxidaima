@@ -6,3 +6,5 @@ export const GetSearchPopupData = () => request.get("/search/index")
 export const GetSearchTipsListData = (params) => request.get("/search/helper", { params })
 //搜索商品的列表数据
 export const GetGoodsListData = (params) => request.get("/goods/list", { params })
+//清除历史记录
+export const ClearHistory = () => request.post("/search/clearhistory")

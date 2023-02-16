@@ -2,7 +2,12 @@
 <template>
   <div>
     <van-list :finished="finished" finished-text="没有更多了">
-      <van-cell v-for="item in searchTipsListData" :key="item" :title="item" />
+      <van-cell
+        @click="cellClick(item)"
+        v-for="item in searchTipsListData"
+        :key="item"
+        :title="item"
+      />
     </van-list>
   </div>
 </template>
@@ -16,6 +21,11 @@ export default {
   },
   props: {
     searchTipsListData: [],
+  },
+  methods: {
+    cellClick(val) {
+      this.$emit("cellClick", val);
+    },
   },
 };
 </script>

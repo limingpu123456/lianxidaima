@@ -13,16 +13,20 @@
       v-if="blockShow == 1"
       :historyListData="historyListData"
       :hotKeywordListData="hotKeywordListData"
+      @tagClick="tagClick"
     ></HistoryHot>
 
     <SearchTipsList
       v-else-if="blockShow == 2"
       :searchTipsListData="searchTipsListData"
+      @cellClick="cellClick"
     ></SearchTipsList>
     <SearchProducts
       v-else
       :filterCategory="filterCategory"
       :goodsList="goodsList"
+      @categoryChange="categoryChange"
+      @priceChange="priceChange"
     ></SearchProducts>
   </div>
 </template>
@@ -47,7 +51,7 @@ export default {
       //为1表示展示历史记录和热门搜索
       //为2表示展示搜索提示的列表
       //为3表示展示搜索的产品的内容
-      blockShow: 3,
+      blockShow: 1,
       //历史记录的列表数据
       historyListData: [],
       //热门搜索列表数据
@@ -59,7 +63,7 @@ export default {
       //搜索产品内容的列表数据
       goodsList: [],
       //价格排序：(由高到低或者由低到高)
-      order: "desc",
+      order: "",
       //分类id
       categoryId: 0,
       //默认的搜索方式，是id还是price
@@ -75,6 +79,14 @@ export default {
     });
   },
   methods: {
+    cellClick(val) {
+      this.searchVal = val;
+      this.onSearch(val);
+    },
+    tagClick(val) {
+      this.searchVal = val;
+      this.onSearch(val);
+    },
     onSearch(val) {
       // console.log("onSearch" + val);
       this.blockShow = 3;
@@ -109,6 +121,16 @@ export default {
         console.log(res.data);
         this.searchTipsListData = res.data.data;
       });
+    },
+    categoryChange(value) {
+      this.categoryId = value;
+      //发送搜索商品的请求
+      this.onSearch(this.searchVal);
+    },
+    priceChange(value) {
+      this.order = value;
+      this.sort = "price";
+      this.onSearch(this.searchVal);
     },
   },
   components: {

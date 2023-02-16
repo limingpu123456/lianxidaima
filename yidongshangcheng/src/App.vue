@@ -1,8 +1,22 @@
 <template>
   <div id="app">
     <router-view />
+    <AppTabbar></AppTabbar>
   </div>
 </template>
+
+
+<script>
+import AppTabbar from "@/components/AppTabbar";
+export default {
+  data() {
+    return {};
+  },
+  components: {
+    AppTabbar,
+  },
+};
+</script>
 
 <style lang="less">
 #app {

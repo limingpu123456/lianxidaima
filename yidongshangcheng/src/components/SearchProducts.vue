@@ -3,14 +3,25 @@
   <div>
     <van-dropdown-menu>
       <van-dropdown-item title="综合" disabled />
-      <van-dropdown-item v-model="value2" :options="option2" title="价格" />
+      <van-dropdown-item
+        v-model="priceVal"
+        :options="option2"
+        title="价格"
+        @change="priceChange"
+      />
       <van-dropdown-item
         v-model="categoryVal"
         :options="filterCategory"
         title="分类"
+        @change="categoryChange"
       />
     </van-dropdown-menu>
-    <Products :goodsList="goodsList"></Products>
+    <van-empty
+      image="search"
+      description="没找到商品"
+      v-if="goodsList.length === 0"
+    />
+    <Products :goodsList="goodsList" v-else></Products>
   </div>
 </template>
 
@@ -19,11 +30,11 @@ import Products from "./Products";
 export default {
   data() {
     return {
-      value2: 0,
+      priceVal: "",
       categoryVal: 1,
       option2: [
-        { text: "价格由高到低", value: "a" },
-        { text: "价格由低到高", value: "b" },
+        { text: "价格由高到低", value: "desc" },
+        { text: "价格由低到高", value: "asc" },
       ],
     };
   },
@@ -42,6 +53,16 @@ export default {
         return;
       }
     });
+  },
+  methods: {
+    categoryChange(value) {
+      //value就是分类id
+      this.$emit("categoryChange", value);
+    },
+    priceChange(value) {
+      // console.log(value);
+      this.$emit("priceChange", value);
+    },
   },
 };
 </script>
