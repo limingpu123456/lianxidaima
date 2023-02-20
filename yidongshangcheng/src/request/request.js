@@ -9,8 +9,13 @@ instance.interceptors.request.use(
     //可以判断用户有没有登录，如果没有登录，就return，请求就不会出去
     //config是本次请求的信息
     // console.log('config:', config)
+    let token = localStorage.getItem('token');
+    if (token) {
+      config.headers['X-Nideshop-Token'] = token
+    }
     return config
   }, err => {
+    //携带登录凭证发起请求
     return Promise.reject(err)
   })
 //相应拦截器

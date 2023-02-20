@@ -49,13 +49,13 @@
         <img src="@/assets/img/箭头_列表向右_o.png" alt="" />
       </div>
       <van-list>
-        <van-cell v-for="item in list" :key="item">
+        <van-cell v-for="(item, key) in list" :key="key">
           <div class="div1">{{ item.name }}</div>
           <div class="div2">{{ item.text }}</div>
         </van-cell>
       </van-list>
     </div>
-    <div class="tabbar">
+    <!-- <div class="tabbar">
       <div class="div1">
         <img src="@/assets/img/首页 (1).png" alt="" />
         <div>首页</div>
@@ -68,7 +68,12 @@
         <img src="@/assets/img/首页 (1).png" alt="" />
         <div>首页</div>
       </div>
-    </div>
+    </div> -->
+    <van-tabbar>
+      <van-tabbar-item icon="home-o">标签</van-tabbar-item>
+      <van-tabbar-item icon="search">标签</van-tabbar-item>
+      <van-tabbar-item icon="friends-o">标签</van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
@@ -95,6 +100,18 @@ export default {
           name: "关于征集第二批2022青岛中小企业国际采购洽谈会参会企业的通知",
           text: "2022-03-08 ｜ 胶州市科技和工业信息化局",
         },
+        {
+          name: "关于征集第二批2022青岛中小企业国际采购洽谈会参会企业的通知",
+          text: "2022-03-08 ｜ 胶州市科技和工业信息化局",
+        },
+        {
+          name: "关于征集第二批2022青岛中小企业国际采购洽谈会参会企业的通知",
+          text: "2022-03-08 ｜ 胶州市科技和工业信息化局",
+        },
+        {
+          name: "关于征集第二批2022青岛中小企业国际采购洽谈会参会企业的通知",
+          text: "2022-03-08 ｜ 胶州市科技和工业信息化局",
+        },
       ],
     };
   },
@@ -103,12 +120,14 @@ export default {
 <style lang = "less"  scoped>
 .home {
   background-color: rgba(244, 244, 247);
+  overflow: auto;
   .img {
     background: url("@/assets/img/首页背景/状态/默认.jpg");
     background-size: cover;
     width: 100%;
     height: 2rem;
     padding-top: 0.26rem;
+    margin: 0 auto;
     .div1 {
       font-family: PingFangSC-Semibold;
       font-size: 23px;
@@ -273,65 +292,65 @@ export default {
       }
     }
   }
-  .tabbar {
-    background-color: #fff;
-    width: 100%;
-    height: 0.6rem;
-    padding-top: 0.0643rem;
-    display: flex;
-    .div1 {
-      width: 0.56rem;
-      height: 0.4821rem;
-      margin-left: 0.43rem;
-      margin-top: 5px;
-      img {
-        margin-left: 13px;
-      }
-      div {
-        font-family: PingFangSC-Regular;
-        font-size: 12px;
-        color: #999999;
-        letter-spacing: 0.18px;
-        text-align: center;
-        font-weight: 400;
-      }
-    }
-    .div2 {
-      width: 0.56rem;
-      height: 0.4821rem;
-      margin-left: 0.6rem;
-      margin-top: 5px;
+  // .tabbar {
+  //   background-color: #fff;
+  //   width: 100%;
+  //   height: 0.6rem;
+  //   padding-top: 0.0643rem;
+  //   display: flex;
+  //   .div1 {
+  //     width: 0.56rem;
+  //     height: 0.4821rem;
+  //     margin-left: 0.43rem;
+  //     margin-top: 5px;
+  //     img {
+  //       margin-left: 13px;
+  //     }
+  //     div {
+  //       font-family: PingFangSC-Regular;
+  //       font-size: 12px;
+  //       color: #999999;
+  //       letter-spacing: 0.18px;
+  //       text-align: center;
+  //       font-weight: 400;
+  //     }
+  //   }
+  //   .div2 {
+  //     width: 0.56rem;
+  //     height: 0.4821rem;
+  //     margin-left: 0.6rem;
+  //     margin-top: 5px;
 
-      div {
-        font-family: PingFangSC-Regular;
-        font-size: 12px;
-        color: #999999;
-        letter-spacing: 0.18px;
-        text-align: center;
-        font-weight: 400;
-      }
-      img {
-        margin-left: 13px;
-      }
-    }
-    .div3 {
-      width: 0.56rem;
-      height: 0.4821rem;
-      margin-left: 0.6rem;
-      margin-top: 5px;
+  //     div {
+  //       font-family: PingFangSC-Regular;
+  //       font-size: 12px;
+  //       color: #999999;
+  //       letter-spacing: 0.18px;
+  //       text-align: center;
+  //       font-weight: 400;
+  //     }
+  //     img {
+  //       margin-left: 13px;
+  //     }
+  //   }
+  //   .div3 {
+  //     width: 0.56rem;
+  //     height: 0.4821rem;
+  //     margin-left: 0.6rem;
+  //     margin-top: 5px;
 
-      div {
-        font-family: PingFangSC-Regular;
-        font-size: 12px;
-        color: #999999;
-        letter-spacing: 0.18px;
-        text-align: center;
-        font-weight: 400;
-      }
-      img {
-        margin-left: 13px;
-      }
-    }
-  }
+  //     div {
+  //       font-family: PingFangSC-Regular;
+  //       font-size: 12px;
+  //       color: #999999;
+  //       letter-spacing: 0.18px;
+  //       text-align: center;
+  //       font-weight: 400;
+  //     }
+  //     img {
+  //       margin-left: 13px;
+  //     }
+  //   }
+  // }
 }
 </style>

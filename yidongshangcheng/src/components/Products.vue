@@ -2,7 +2,11 @@
 <template>
   <div>
     <ul>
-      <li v-for="item in goodsList" :key="item.id">
+      <li
+        v-for="item in goodsList"
+        :key="item.id"
+        @click="toProductDetail(item.id)"
+      >
         <img
           :src="item.list_pic_url"
           style="display: block"
@@ -23,6 +27,15 @@ export default {
   },
   props: {
     goodsList: [],
+  },
+  methods: {
+    toProductDetail(id) {
+      this.$router.push("/productDetail?id=" + id);
+      //页面刷新
+      setTimeout(() => {
+        this.$router.go(0);
+      }, 100);
+    },
   },
 };
 </script>
