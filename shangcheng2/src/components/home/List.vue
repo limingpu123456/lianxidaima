@@ -1,15 +1,35 @@
 <template>
   <ul class="list">
-    <li v-for="item in [10, 20, 30, 40]" :key="item">
+    <li
+      v-for="(item, index) in arr"
+      :key="index"
+      v-show="index < maxLength"
+      @click="goToDetails(item.id)"
+    >
       <section>
-        <img src="../../assets/img/listimg.jpg" alt="" />
+        <img
+          :src="imgBaseUrl + item.coverImg"
+          alt=""
+          width="285px"
+          height="330px"
+        />
         <div class="bottom-box">
-          <h3>商品标题</h3>
-          <p>200 积分</p>
+          <h3>{{ item.name }}</h3>
+          <p>{{ item.coin }} 积分</p>
           <div class="btn">立即兑换</div>
         </div>
-        <img class="flag" src="../../assets/img/section_new.png" alt="" />
-        <img class="flag" src="../../assets/img/section_hot.png" alt="" />
+        <img
+          class="flag"
+          src="../../assets/img/section_new.png"
+          alt=""
+          v-show="item.isHotSale"
+        />
+        <img
+          class="flag"
+          src="../../assets/img/section_hot.png"
+          alt=""
+          v-show="item.isLatest"
+        />
       </section>
     </li>
   </ul>
@@ -20,7 +40,13 @@ export default {
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    goToDetails(id) {
+      //跳转到对应的详情页
+      this.$router.push(`/details?id=${id}`);
+    },
+  },
+  props: ["arr", "maxLength"],
 };
 </script>
 

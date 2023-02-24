@@ -22,3 +22,7 @@ export const AddProductToCart = params => request.post("/cart/add", params)
 export const GetCartListData = () => request.get("/cart/index")
 //点击切换商品的选中状态
 export const ChangeGoodChecked = params => request.post("/cart/checked", params)
+//步进器的请求
+export const StepperChangeData = params => request.post("/cart/update", params)
+//删除商品
+export const DeleteGood = params => request.post("/cart/delete", params)

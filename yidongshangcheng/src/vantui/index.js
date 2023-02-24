@@ -1,6 +1,6 @@
 import Vue from 'vue';
 // 按需引入组件
-import { Search, Swipe, SwipeItem, Icon, Tag, List, Cell, Grid, GridItem, DropdownMenu, DropdownItem, Empty, Toast, Tabbar, TabbarItem, Row, Col, Popup, Form, Field, Button, Dialog, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku, Checkbox, CheckboxGroup, Card, SubmitBar, Stepper } from 'vant';
+import { Search, Swipe, SwipeItem, Icon, Tag, List, Cell, Grid, GridItem, DropdownMenu, DropdownItem, Empty, Toast, Tabbar, TabbarItem, Row, Col, Popup, Form, Field, Button, Dialog, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku, Checkbox, CheckboxGroup, Card, SubmitBar, Stepper, SwipeCell } from 'vant';
 
 
 
@@ -25,7 +25,7 @@ Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
 Vue.use(Empty);
 Vue.use(Toast);
-
+Vue.use(SwipeCell);
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(Row);

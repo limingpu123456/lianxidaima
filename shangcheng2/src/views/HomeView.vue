@@ -6,14 +6,14 @@
     <div class="content">
       <div class="wrap">
         <JfTitle title1="精品推荐" :imgSrc="titImg1"></JfTitle>
-        <List :arr="jingpinArr"></List>
+        <List :arr="jingpinArr" maxLength="4"></List>
         <JfTitle title1="热门兑换" :imgSrc="titImg2"></JfTitle>
         <img
           style="margin: 10px 0 30px 0"
           src="../assets/img/ad.4c6b6225.png"
           alt=""
         />
-        <List :arr="remenArr"></List>
+        <List :arr="remenArr" maxLength="6"></List>
       </div>
     </div>
     <div class="wrap">
@@ -43,7 +43,7 @@
 <script>
 import JfTitle from "@/components/home/JfTitle";
 import List from "@/components/home/List";
-
+import { JingpinAPI, ReMenAPI } from "@/request/api.js";
 export default {
   components: { JfTitle, List },
   data() {
@@ -64,7 +64,9 @@ export default {
     //Promise对象之后可以点then，所以.then的前面就是Promise对象，因此JingpinAPI就是Promise对象,加完await之后，就可以不用写后面的then了，然后用一个变量接收promise对象
     //写了await之后，函数前面要加async
     let res = await JingpinAPI();
-    console.log(res);
+    let res2 = await ReMenAPI();
+    this.jingpinArr = res.data.data.records;
+    this.remenArr = res2.data.data.records;
   },
 };
 </script>

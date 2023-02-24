@@ -35,7 +35,12 @@
       </li>
     </ul>
     <div class="search">
-      <input type="text" placeholder="请输入想要搜索的内容" />
+      <input
+        type="text"
+        placeholder="请输入想要搜索的内容"
+        @keyup.13="toSearch"
+        v-model="userInputKeyword"
+      />
       <span
         ><img width="20" height="20" src="@/assets/img/search.png" alt=""
       /></span>
@@ -46,7 +51,18 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      userInputKeyword: "",
+    };
+  },
+  methods: {
+    toSearch() {
+      console.log("执行了toSearch", this.userInputKeyword);
+      //直接跳转到goods中，然后用create函数进行查询，跳转的时候要带用户输入的参数
+      this.$router.push(`/goods?keyword=${this.userInputKeyword}`);
+      //清空内容
+      this.userInputKeyword = "";
+    },
   },
 };
 </script>

@@ -63,9 +63,7 @@
           <van-cell is-link @click="showPopup" v-else>
             <div>请选择</div>
           </van-cell>
-          <van-popup v-model="show" position="bottom" :class="popup"
-            >内容</van-popup
-          >
+          <van-popup v-model="show" position="bottom">内容</van-popup>
         </div>
       </div>
       <div class="zhunbei wrap"></div>

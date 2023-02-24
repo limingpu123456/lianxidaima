@@ -112,6 +112,7 @@ export default {
     onCancel() {
       //返回上一级路由
       this.$router.go(-1);
+      this.$store.commit("changeisShowPopupShadow", false);
     },
     onInput(val) {
       // console.log(val);

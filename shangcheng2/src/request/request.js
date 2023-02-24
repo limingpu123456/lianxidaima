@@ -3,7 +3,7 @@ import axios from "axios";
 import store from '@/store'
 // 实例：就是对象
 const instance = axios.create({
-  baseURL: "http://kumanxuan1.f3322.net:8881/cms",
+  baseURL: "/api",
   //请求过期时间最大值
   timeout: 5000
 })

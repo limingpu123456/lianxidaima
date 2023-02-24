@@ -2,20 +2,35 @@
 <template>
   <div class="body">
     <Tips></Tips>
-    <van-checkbox-group v-model="result">
+
+    <van-checkbox-group v-model="result" :disabled="isEditing">
       <van-checkbox
         :name="item.id"
         v-for="item in cartList"
         :key="item.id"
         @click="changeChecked(item)"
       >
-        <van-card
-          :num="item.number"
-          :price="item.retail_price"
-          :title="item.goods_name"
-          :thumb="item.list_pic_url"
-        />
-        <van-stepper v-model="item.number" v-show="isEditing" />
+        <van-swipe-cell>
+          <van-card
+            :num="item.number"
+            :price="item.retail_price"
+            :title="item.goods_name"
+            :thumb="item.list_pic_url"
+          />
+          <template #right>
+            <van-button
+              @click="delGood(item.product_id)"
+              square
+              type="danger"
+              text="删除"
+            />
+          </template>
+          <van-stepper
+            v-model="item.number"
+            v-show="isEditing"
+            @change="stepperChange(item)"
+          />
+        </van-swipe-cell>
       </van-checkbox>
     </van-checkbox-group>
 
@@ -24,11 +39,19 @@
       button-text="提交订单"
       @submit="onSubmit"
     >
-      <van-checkbox v-model="checkedAll">全选</van-checkbox>
+      <van-checkbox v-model="checkedAll" :disabled="isEditing"
+        >全选</van-checkbox
+      >
       <template #tip>
         累计共<span>{{ cartTotal.checkedGoodsCount }}</span
         >件商品，可点击
-        <van-button type="primary" size="small">编辑</van-button>
+        <van-button
+          :type="isEditing ? 'danger' : 'primary'"
+          size="small"
+          @click="editBtn"
+        >
+          {{ isEditing ? "完成编辑" : "编辑" }}
+        </van-button>
         按钮进行商品数量修改
       </template>
     </van-submit-bar>
@@ -37,7 +60,12 @@
 
 <script>
 import Tips from "@/components/Tips.vue";
-import { GetCartListData, ChangeGoodChecked } from "@/request/api";
+import {
+  GetCartListData,
+  ChangeGoodChecked,
+  StepperChangeData,
+  DeleteGood,
+} from "@/request/api";
 export default {
   data() {
     return {
@@ -67,6 +95,9 @@ export default {
     });
   },
   methods: {
+    editBtn() {
+      this.isEditing = !this.isEditing;
+    },
     totalFn(res) {
       this.cartList = res.data.data.cartList;
       this.cartTotal = res.data.data.cartTotal;
@@ -79,6 +110,9 @@ export default {
     onClickEditAddress() {},
     onSubmit() {},
     changeChecked(item) {
+      if (this.isEditing) {
+        return;
+      }
       //这个发送的是什么请求：
       //这个请求告诉后端改变了哪些值，后端接受到之后，返回给我们一个处理过后的页面数据
       ChangeGoodChecked({
@@ -88,6 +122,28 @@ export default {
         if (res.data.errno == 0) {
           console.log(res.data);
           this.totalFn(res);
+        }
+      });
+    },
+    stepperChange(item) {
+      console.log(item);
+      StepperChangeData({
+        goodsId: item.goods_id,
+        id: item.id,
+        number: item.number,
+        productId: item.product_id,
+      }).then((res) => {
+        if (res.data.data.errno == 0) {
+          this.totalFn(res.data.data);
+        }
+      });
+    },
+    delGood(pid) {
+      DeleteGood({
+        productIds: pid.toString(),
+      }).then((res) => {
+        if (res.data.errno == 0) {
+          console.log(res.data.data);
         }
       });
     },
@@ -141,5 +197,8 @@ export default {
 }
 .van-stepper {
   text-align: right;
+}
+.van-button--square {
+  height: 100%;
 }
 </style>

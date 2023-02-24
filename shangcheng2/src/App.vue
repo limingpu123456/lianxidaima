@@ -35,6 +35,7 @@ export default {
       isShowToast: (state) => state.toastStatus.isShowToast,
     }),
   },
+  methods: {},
 };
 </script>
 

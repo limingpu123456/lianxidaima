@@ -5,7 +5,7 @@
       placeholder="请输入搜索关键词"
       shape="round"
       disabled
-      @click="$router.push('/home/searchPopup')"
+      @click="handleClickSearch"
     />
     <!--轮播图-->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -14,6 +14,10 @@
       </van-swipe-item>
     </van-swipe>
     <transition name="van-fade">
+      <div class="popup-shadow" v-show="$store.state.isShowPopupShadow"></div>
+    </transition>
+
+    <transition name="van-slide-right">
       <router-view></router-view>
     </transition>
   </div>
@@ -36,8 +40,23 @@ export default {
       this.banner = res.data.data.banner;
     });
   },
+  methods: {
+    handleClickSearch() {
+      this.$router.push("/home/searchPopup");
+      //修改vuex中的变量的值未true
+      this.$store.commit("changeisShowPopupShadow", true);
+    },
+  },
 };
 </script>
 
 <style lang = "less"  scoped>
+.popup-shadow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 </style>
